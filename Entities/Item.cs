@@ -26,6 +26,7 @@ namespace Memberships.Entities
         public string Url { get; set; }
 
         [MaxLength(1024)]
+        [DisplayName("Image Url")]
         public string ImageUrl { get; set; }
 
         //Below property is to allow db to store and use HTML in MVC
@@ -33,6 +34,7 @@ namespace Memberships.Entities
         public string HTML { get; set; }
 
         [DefaultValue(0)]
+        [DisplayName("Wait Days")]
         public int WaitDays { get; set; }
 
         public string HTMLShort
@@ -49,7 +51,7 @@ namespace Memberships.Entities
         public int ItemTypeId { get; set; }
         public int SectionId { get; set; }
         public int PartId { get; set; }
-        public int IsFree { get; set; }
+        public bool IsFree { get; set; }
 
         //create collection for lazy loading
         [DisplayName("Item Type")]
