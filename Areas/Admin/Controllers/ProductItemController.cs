@@ -36,7 +36,7 @@ namespace Memberships.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(productItem.Convert(db));
+            return View(await productItem.Convert(db));
         }
 
         // GET: Admin/ProductItem/Create
