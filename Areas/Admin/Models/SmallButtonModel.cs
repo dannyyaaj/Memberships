@@ -6,7 +6,8 @@ using System.Web;
 
 namespace Memberships.Areas.Admin.Models
 {
-    public class SmallButtonModel
+    public class 
+        SmallButtonModel
     {
         public string Action { get; set; }
         public string Text { get; set; }
