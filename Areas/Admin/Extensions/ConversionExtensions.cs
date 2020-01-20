@@ -188,15 +188,15 @@ namespace Memberships.Areas.Admin.Extensions
         public static async Task<bool> CanChange(
             this SubscriptionProduct subscriptionProduct, ApplicationDbContext db)
         {
-            var oldPI = await db.SubscriptionProducts.CountAsync(sp =>
+            var oldSP = await db.SubscriptionProducts.CountAsync(sp =>
                 sp.ProductId.Equals(subscriptionProduct.OldProductId) &&
                 sp.SubscriptionId.Equals(subscriptionProduct.OldSubscriptionId));
 
-            var newPI = await db.SubscriptionProducts.CountAsync(sp =>
+            var newSP = await db.SubscriptionProducts.CountAsync(sp =>
                 sp.ProductId.Equals(subscriptionProduct.ProductId) &&
                 sp.SubscriptionId.Equals(subscriptionProduct.SubscriptionId));
 
-            return oldPI.Equals(1) && newPI.Equals(0);
+            return oldSP.Equals(1) && newSP.Equals(0);
         }
 
         public static async Task Change(this SubscriptionProduct subscriptionProduct, ApplicationDbContext db)
