@@ -41,7 +41,7 @@ namespace Memberships.Areas.Admin.Controllers
         }
 
         // GET: Admin/SubscriptionProduct/Create
-        public async ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             //Create instance of SubscriptionProductModel and pass it into view
             var model = new SubscriptionProductModel
