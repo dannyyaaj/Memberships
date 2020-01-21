@@ -31,7 +31,7 @@ namespace Memberships.Areas.Admin.Models
                 if (ProductId != null && ProductId > 0)
                     param.Append(String.Format("{0}={1}&", "productId", ProductId));
                 if (SubscriptionId != null && SubscriptionId > 0)
-                    param.Append(String.Format("{0}={1}", "subscriptionId", SubscriptionId));
+                    param.Append(String.Format("{0}={1}&", "subscriptionId", SubscriptionId));
 
                 return param.ToString().Substring(0, param.Length - 1);
             }
