@@ -157,7 +157,7 @@ namespace Memberships.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     IsActive = true,
-                    Registered = DateTime.Now(),
+                    Registered = DateTime.Now,
                     EmailConfirmed = true,
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
