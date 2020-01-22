@@ -12,6 +12,7 @@ using Memberships.Models;
 using System.Collections.Generic;
 using Memberships.Extensions;
 using System.Net;
+using System.Data.Entity;
 
 namespace Memberships.Controllers
 {
@@ -667,5 +668,39 @@ namespace Memberships.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Subscription(string userId)
+        {
+            if (userId == null || userId.Equals(string.Empty))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var model = new UserSubscriptionViewModel();
+            var db = new ApplicationDbContext();
+            model.UserSubscriptions = await
+                (from us in db.UserSubscriptions
+                 join s in db.Subscriptions on us.SubscritionId equals s.Id
+                 where us.UserId.Equals(userId)
+                 select new UserSubscriptionModel
+                 {
+                     Id = us.SubscritionId,
+                     StartDate = us.StartDate,
+                     EndDate = us.EndDate,
+                     Description = s.Description,
+                     RegistrationCode = s.RegistrationCode,
+                     Title = s.Title
+                 }).ToListAsync();
+
+            var ids = model.UserSubscriptions.Select(us => us.Id);
+
+            model.Subscriptions = await db.Subscriptions.Where(
+                s => !ids.Contains(s.Id)).ToListAsync();
+
+            model.DisableDropdown = model.Subscriptions.Count.Equals(0);
+            model.UserId = userId;
+
+            return View(model);
+        }
     }
 }
