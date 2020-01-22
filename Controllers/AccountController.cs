@@ -669,7 +669,7 @@ namespace Memberships.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Subscription(string userId)
+        public async Task<ActionResult> Subscriptions(string userId)
         {
             if (userId == null || userId.Equals(string.Empty))
             {
@@ -701,6 +701,37 @@ namespace Memberships.Controllers
             model.UserId = userId;
 
             return View(model);
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Subscriptions(UserSubscriptionViewModel model)
+        {
+            try
+            {
+                if (model == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                if (ModelState.IsValid)
+                {
+                    var db = new ApplicationDbContext();
+                    db.UserSubscriptions.Add(new Entities.UserSubscription
+                    {
+                        UserId = model.UserId,
+                        SubscritionId = model.SubscriptionId,
+                        StartDate = DateTime.Now,
+                        EndDate = DateTime.MaxValue
+                    });
+
+                    await db.SaveChangesAsync();
+                }
+            }
+            catch { }
+            return RedirectToAction("Subscriptoins", "Account", new { userId = model.UserId});
         }
     }
 }
