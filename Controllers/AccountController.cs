@@ -586,10 +586,10 @@ namespace Memberships.Controllers
                     var user = await UserManager.FindByIdAsync(model.Id);
                     if (user != null)
                     {
-                        user.Email = model.Email,
-                    user.FirstName = model.FirstName,
-                    user.LastName = model.LastName,
-                    if (!user.PasswordHash.Equals(model.Password))
+                        user.Email = model.Email;
+                        user.FirstName = model.FirstName;
+                        user.LastName = model.LastName;
+                        if (!user.PasswordHash.Equals(model.Password))
                             user.PasswordHash = UserManager.PasswordHasher
                                 .HashPassword(model.Password);
 
