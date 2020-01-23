@@ -730,7 +730,7 @@ namespace Memberships.Controllers
                 }
             }
             catch { }
-            return RedirectToAction("Subscriptoins", "Account", new { userId = model.UserId });
+            return RedirectToAction("Subscriptions", "Account", new { userId = model.UserId });
         }
 
         [Authorize(Roles = "Admin")]
